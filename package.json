@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "API for NodeJS study project",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node dist/main.js",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pavel Klochkov",
@@ -22,6 +23,7 @@
     "ts-node": "^10.4.0"
   },
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "tslog": "^3.3.0"
   }
 }
