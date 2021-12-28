@@ -1,26 +1,11 @@
-import http from 'http';
+import express from 'express';
 
-const host = '127.0.0.1';
 const port = 8000;
+const app = express();
 
-const server = http.createServer((req, res) => {
-  switch (req.method) {
-    case 'GET':
-      switch (req.url) {
-        case '/hello':
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'text/plain');
-          res.end('Hello from NodeJS Pure server');
-          break;
-        default:
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'text/plain');
-          res.end('NodeJS Pure server');
-          break;
-      }
-      break;
-  }
-});
+app.get('/hello', ((req, res) => {
+  res.send('Hello from NodeJS Pure server');
+}));
 
 // eslint-disable-next-line no-console
-server.listen(port, host, () => console.log(`Server started at ${host}:${port}`));
+app.listen(port, () => console.log(`Server started at http://localhost:${port}`));
