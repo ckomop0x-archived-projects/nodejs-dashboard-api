@@ -1,7 +1,7 @@
 import { Logger } from 'tslog';
 
 export default class LoggerService {
-  public logger: Logger;
+  private logger: Logger;
 
   constructor() {
     this.logger = new Logger({
@@ -12,15 +12,15 @@ export default class LoggerService {
     });
   }
 
-  log(...args: unknown[]) {
+  public log(...args: unknown[]) {
     this.logger.info(...args);
   }
 
-  error(...args: unknown[]) {
+  public error(...args: unknown[]) {
     this.logger.error(...args);
   }
 
-  warn(...args: unknown[]) {
+  public warn(...args: unknown[]) {
     this.logger.warn(...args);
   }
 }
