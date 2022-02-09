@@ -1,13 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { LoggerService } from "../logger/logger.service";
-import { IExceptionFilterInterface } from "./exception.filter.interface";
-import { HttpError } from "./http-error.class";
 
-export class ExceptionFilter implements IExceptionFilterInterface {
-  logger: LoggerService;
-  constructor(logger: LoggerService) {
-    this.logger = logger;
-  }
+import { IExceptionFilter } from "./exception.filter.interface";
+import { HttpError } from "./http-error.class";
+import { inject, injectable } from "inversify";
+import { ILogger } from "../logger/logger.interface";
+import { TYPES } from "../types";
+import "reflect-metadata";
+
+@injectable()
+export class ExceptionFilter implements IExceptionFilter {
+  constructor(@inject(TYPES.ILogger) private logger: ILogger) {}
 
   catch(
     err: Error | HttpError,
@@ -21,7 +23,6 @@ export class ExceptionFilter implements IExceptionFilterInterface {
       );
       res.status(err.statusCode).send({ err: err.message });
     } else {
-      `${err.message}`;
       res.status(500).send({ err: err.message });
     }
   }
