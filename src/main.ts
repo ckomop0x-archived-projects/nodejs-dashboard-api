@@ -10,6 +10,8 @@ import { IExceptionFilter } from './errors/exception.filter.interface';
 import { IUsersController } from './users/users.controller.interface';
 import { UsersService } from './users/users.service';
 import { IUsersService } from './users/users.service.interface';
+import { IConfigService } from './config/config.service.interface';
+import { ConfigService } from './config/config.service';
 
 interface IBootstrapReturn {
 	appContainer: Container;
@@ -17,11 +19,18 @@ interface IBootstrapReturn {
 }
 
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
-	bind<ILogger>(TYPES.ILogger).to(LoggerService);
-	bind<IExceptionFilter>(TYPES.ExceptionFilter).to(ExceptionFilter);
-	bind<IUsersController>(TYPES.UsersController).to(UsersController);
-	bind<IUsersService>(TYPES.UsersService).to(UsersService);
-	bind<App>(TYPES.Application).to(App);
+	bind<ILogger>(TYPES.ILogger).to(LoggerService).inSingletonScope();
+	bind<IExceptionFilter>(TYPES.ExceptionFilter)
+		.to(ExceptionFilter)
+		.inSingletonScope();
+	bind<IUsersController>(TYPES.UsersController)
+		.to(UsersController)
+		.inSingletonScope();
+	bind<IUsersService>(TYPES.UsersService).to(UsersService).inSingletonScope();
+	bind<IConfigService>(TYPES.ConfigService)
+		.to(ConfigService)
+		.inSingletonScope();
+	bind<App>(TYPES.Application).to(App).inSingletonScope();
 });
 
 function bootstrap(): IBootstrapReturn {

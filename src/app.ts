@@ -7,6 +7,7 @@ import { TYPES } from './types';
 import 'reflect-metadata';
 import { IUsersController } from './users/users.controller.interface';
 import { json } from 'body-parser';
+import { ConfigService } from './config/config.service';
 
 @injectable()
 export default class App {
@@ -19,6 +20,7 @@ export default class App {
 		@inject(TYPES.UsersController) private usersController: IUsersController,
 		@inject(TYPES.ExceptionFilter)
 		private readonly exceptionFilter: ExceptionFilter,
+		@inject(TYPES.ConfigService) private readonly configService: ConfigService,
 	) {
 		this.app = express();
 		this.port = 8000;
