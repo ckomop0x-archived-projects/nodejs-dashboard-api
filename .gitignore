@@ -97,3 +97,6 @@ Temporary Items
 .apdisk
 .idea
 /.clinic
+
+/prisma/dev.db
+/prisma/dev.db-journal
