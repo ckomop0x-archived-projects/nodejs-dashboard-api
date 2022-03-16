@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { inject, injectable } from 'inversify';
 import { PrismaClient, UserModel } from '@prisma/client';
 import { TYPES } from '../types';
