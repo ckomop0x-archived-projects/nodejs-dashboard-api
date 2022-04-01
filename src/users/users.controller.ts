@@ -40,6 +40,11 @@ export class UsersController extends BaseController implements IUsersController 
 				method: 'post',
 				func: this.logout,
 			},
+			{
+				path: '/info',
+				method: 'get',
+				func: this.info,
+			},
 		]);
 	}
 
@@ -50,10 +55,15 @@ export class UsersController extends BaseController implements IUsersController 
 	): Promise<void> {
 		const result = await this.userService.createUser(req.body);
 		if (!result) return next(new HttpError(422, 'The user already exist'));
-		// const newUser = new User(req.body.email, req.body.name);
-		// await newUser.setPassword(req.body.password);
-		// console.log(newUser);
 		this.ok(res, { email: result.email, id: result.id });
+	}
+
+	async info(
+		{ user }: Request<{}, {}, UserRegisterDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		this.ok(res, { email: user });
 	}
 
 	async login(

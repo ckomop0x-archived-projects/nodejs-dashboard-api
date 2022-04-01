@@ -9,6 +9,7 @@ import { IUsersController } from './users/users.controller.interface';
 import { json } from 'body-parser';
 import { ConfigService } from './config/config.service';
 import { PrismaService } from './database/prisma.service';
+import { AuthMiddleware } from './common/auth.middleware';
 
 @injectable()
 export default class App {
@@ -30,6 +31,8 @@ export default class App {
 
 	useMiddleware(): void {
 		this.app.use(json());
+		const authMiddleware = new AuthMiddleware(this.configService.get('JWT'));
+		this.app.use(authMiddleware.execute.bind(authMiddleware));
 	}
 
 	private useRoutes(): void {
